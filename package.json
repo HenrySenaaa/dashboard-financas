@@ -1,0 +1,13 @@
+{
+  "name": "dashboard-financas",
+  "version": "1.0.0",
+  "description": "Dashboard de finanças pessoais com receitas, despesas e persistência em localStorage.",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "jsdom": "^30.1.3"
+  }
+}

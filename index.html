@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard de finanças pessoais com controle de receitas e despesas salvo no navegador.">
+  <title>Finanças Pessoais</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">R$</span>
+        <h1 class="brand__name">Finanças Pessoais</h1>
+      </div>
+      <p class="topbar__hint">Seus dados ficam salvos apenas neste navegador.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="summary" aria-label="Resumo financeiro">
+      <article class="card card--balance" id="balance-card">
+        <h2 class="card__label">Saldo total</h2>
+        <p class="card__value" id="balance" aria-live="polite">R$ 0,00</p>
+      </article>
+      <article class="card card--income">
+        <h2 class="card__label"><span class="dot dot--income" aria-hidden="true"></span>Receitas</h2>
+        <p class="card__value" id="income">R$ 0,00</p>
+      </article>
+      <article class="card card--expense">
+        <h2 class="card__label"><span class="dot dot--expense" aria-hidden="true"></span>Despesas</h2>
+        <p class="card__value" id="expense">R$ 0,00</p>
+      </article>
+    </section>
+
+    <div class="layout">
+      <section class="panel" aria-labelledby="form-title">
+        <h2 class="panel__title" id="form-title">Nova transação</h2>
+        <form id="transaction-form" class="form" novalidate>
+          <label class="field">
+            <span class="field__label">Descrição</span>
+            <input type="text" id="description" name="description" maxlength="80" placeholder="Ex.: Salário, Mercado..." autocomplete="off" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Valor (R$)</span>
+            <input type="text" id="amount" name="amount" inputmode="decimal" placeholder="0,00" autocomplete="off" required>
+          </label>
+          <fieldset class="field type-toggle">
+            <legend class="field__label">Tipo</legend>
+            <label class="type-option type-option--income">
+              <input type="radio" name="type" value="income" checked>
+              <span>↑ Entrada</span>
+            </label>
+            <label class="type-option type-option--expense">
+              <input type="radio" name="type" value="expense">
+              <span>↓ Saída</span>
+            </label>
+          </fieldset>
+          <p class="form__error" id="form-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn--primary">Adicionar transação</button>
+        </form>
+      </section>
+
+      <section class="panel panel--table" aria-labelledby="list-title">
+        <div class="panel__header">
+          <div>
+            <h2 class="panel__title" id="list-title">Transações</h2>
+            <p class="panel__subtitle" id="transactions-count">0 transações</p>
+          </div>
+          <div class="filters" role="group" aria-label="Filtrar transações">
+            <button type="button" class="chip" data-filter="all" aria-pressed="true">Todas</button>
+            <button type="button" class="chip" data-filter="income" aria-pressed="false">Entradas</button>
+            <button type="button" class="chip" data-filter="expense" aria-pressed="false">Saídas</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Data</th>
+                <th scope="col"><span class="sr-only">Ações</span></th>
+              </tr>
+            </thead>
+            <tbody id="transactions-body"></tbody>
+          </table>
+          <div class="empty" id="empty-state">
+            <p class="empty__title">Nenhuma transação por aqui</p>
+            <p class="empty__text">Adicione sua primeira entrada ou saída no formulário.</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn--ghost" id="clear-all" hidden>Apagar todas</button>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/logic.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
